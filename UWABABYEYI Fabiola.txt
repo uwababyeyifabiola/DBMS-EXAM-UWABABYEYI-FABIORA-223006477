@@ -1,0 +1,315 @@
+Enter password:
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 14
+Server version: 8.3.0 MySQL Community Server - GPL
+
+Copyright (c) 2000, 2024, Oracle and/or its affiliates.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+Q1. 
+mysql> CREATE DATABASE MANAGEMENTSYSTEM;
+Query OK, 1 row affected (0.02 sec)
+
+mysql> USE MANAGEMENTSYSTEM;
+Database changedmysql> CREATE TABLE CLIENT_MASTER (CientNO INT (10) PRIMARY KEY ,NAME VARCHAR (34), ADDRESS VARCHAR (19),CITY VARCHAR (28),STATE VARCHAR (30), BAL_DUE INT );
+Query OK, 0 rows affected, 1 warning (0.03 sec)
+
+mysql> INSERT INTO CLIENT_MASTER (001,'MWIZA','GASABO','KIGALI','RWANDA',50000);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '001,'MWIZA','GASABO','KIGALI','RWANDA',50000)' at line 1
+mysql> INSERT INTO CLIENT_MASTER VALUES (001,'MWIZA','GASABO','KIGALI','RWANDA',50000);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> INSERT INTO CLIENT_MASTER VALUES (002,'MUGABO','KINIGI','MUSANZE','RWANDA',60000);
+Query OK, 1 row affected (0.00 sec)mysql> INSERT INTO CLIENT_MASTER VALUES (003,'TETA','KABALE','KAMPALA','UGANDA',40000);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> INSERT INTO CLIENT_MASTER VALUES (004,'KALISA','BUHINGA','BUJUMBURA','BURUNDI',12000);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> INSERT INTO CLIENT_MASTER VALUES (005,'TETA','KICUKIRO','KIGALI','RWANDA',25000);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> SELECT *FROM CLIENT_MASTER;
++---------+--------+----------+-----------+---------+---------+
+| CientNO | NAME   | ADDRESS  | CITY      | STATE   | BAL_DUE |
++---------+--------+----------+-----------+---------+---------+
+|       1 | MWIZA  | GASABO   | KIGALI    | RWANDA  |   50000 |
+|       2 | MUGABO | KINIGI   | MUSANZE   | RWANDA  |   60000 |
+|       3 | TETA   | KABALE   | KAMPALA   | UGANDA  |   40000 |
+|       4 | KALISA | BUHINGA  | BUJUMBURA | BURUNDI |   12000 |
+|       5 | TETA   | KICUKIRO | KIGALI    | RWANDA  |   25000 |
++---------+--------+----------+-----------+---------+---------+
+5 rows in set (0.00 sec)
+
+Q2.
+mysql> SELECT NAME FROM CLIENT_MASTER WHERE BAL_DUE>5000;
++--------+
+| NAME   |
++--------+
+| MWIZA  |
+| MUGABO |
+| TETA   |
+| KALISA |
+| TETA   |
++--------+
+5 rows in set (0.00 sec)
+
+Q4.
+mysql> alter table client_master rename to client12;
+Query OK, 0 rows affected (0.03 sec)
+Q5.
+mysql> select bal_due as "BALANCE" from client12;
++---------+
+| BALANCE |
++---------+
+|   50000 |
+|   60000 |
+|   40000 |
+|   12000 |
+|   25000 |
++---------+
+5 rows in set (0.00 sec)
+
+Q6a.
+mysql> CREATE TABLE DEPARTMENTS(DEP_ID INT(20) PRIMARY KEY,DEP_NAME VARCHAR(25),DEP_ADDRESS VARCHAR(15),TELEPHONE INT(20),DEP_MANAGER VARCHAR(10));
+Query OK, 0 rows affected, 2 warnings (0.02 sec)
+
+mysql> CREATE TABLE EMPLOYEES (EMP_ID INT PRIMARY KEY NOT NULL,EMP_NAME VARCHAR (24),EMP_ADDRESS VARCHAR (32),DEP_ID INT , FOREIGN KEY (DEP_ID) REFERENCES DEPARTMENTS(DEP_ID));
+Query OK, 0 rows affected (0.01 sec)
+mysql> INSERT INTO DEPARTMENTS VALUES(100,'FINANCE','HUYE',0788886543,'KAGABO');
+Query OK, 1 row affected (0.00 sec)
+
+mysql> INSERT INTO DEPARTMENTS VALUES(200,'MANAGEMENT','MUHANGA',0788886783,'MUGABE');
+Query OK, 1 row affected (0.00 sec)
+
+mysql> INSERT INTO DEPARTMENTS VALUES(300,'ICT','HUYE',07222286543,'ALICE');
+Query OK, 1 row affected, 1 warning (0.00 sec)
+
+mysql> INSERT INTO DEPARTMENTS VALUES(400,'PRODUCTION','NYANZA',0786776543,'ERIC');
+Query OK, 1 row affected (0.00 sec)
+
+mysql> INSERT INTO DEPARTMENTS VALUES(500,'SALES','KAMONYI',0786778903,'ELINA');
+Query OK, 1 row affected (0.00 sec)
+
+mysql> SELECT *FROM DEPARTMENTS;
++--------+------------+-------------+------------+-------------+
+| DEP_ID | DEP_NAME   | DEP_ADDRESS | TELEPHONE  | DEP_MANAGER |
++--------+------------+-------------+------------+-------------+
+|    100 | FINANCE    | HUYE        |  788886543 | KAGABO      |
+|    200 | MANAGEMENT | MUHANGA     |  788886783 | MUGABE      |
+|    300 | ICT        | HUYE        | 2147483647 | ALICE       |
+|    400 | PRODUCTION | NYANZA      |  786776543 | ERIC        |
+|    500 | SALES      | KAMONYI     |  786778903 | ELINA       |
++--------+------------+-------------+------------+-------------+
+5 rows in set (0.00 sec)
+
+Q6b.
+mysql> INSERT INTO EMPLOYEES VALUES(222,'MANIRAHO','RUHANGO',111);
+Query OK, 1 row affected (0.00 sec)
+
+mysql>  INSERT INTO EMPLOYEES VALUES(232,'UWIMANA','HUYE',113);
+Query OK, 1 row affected (0.00 sec)
+
+mysql>  INSERT INTO EMPLOYEES VALUES(672,'CYIZA','GISAGARA',123);
+Query OK, 1 row affected (0.00 sec)
+
+mysql>  INSERT INTO EMPLOYEES VALUES(442,'KALISA','GASABO',890);
+Query OK, 1 row affected (0.00 sec)
+
+mysql>  INSERT INTO EMPLOYEES VALUES(612,'YVONNE','BURERA',551);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> SELECT *FROM EMMPLOYEES;
+ERROR 1146 (42S02): Table 'managementsystem.emmployees' doesn't exist
+mysql> SELECT *FROM EMPLOYEES;
++--------+----------+-------------+--------+
+| EMP_ID | EMP_NAME | EMP_ADDRESS | DEP_ID |
++--------+----------+-------------+--------+
+|    222 | MANIRAHO | RUHANGO     |    111 |
+|    232 | UWIMANA  | HUYE        |    113 |
+|    672 | CYIZA    | GISAGARA    |    123 |
+|    442 | KALISA   | GASABO      |    890 |
+|    612 | YVONNE   | BURERA      |    551 |
++--------+----------+-------------+--------+
+5 rows in set (0.00 sec)
+
+mysql> SELECT EMP_NAME ,DEP_NAME FROM EMPLOYEES LEFT OUTER JOIN DEPARTMENTS ON EMPLOYEES.DEP_ID=DEPARTMENTS.DEP_ID;
++----------+----------+
+| EMP_NAME | DEP_NAME |
++----------+----------+
+| MANIRAHO | NULL     |
+| UWIMANA  | NULL     |
+| CYIZA    | NULL     |
+| KALISA   | NULL     |
+| YVONNE   | NULL     |
++----------+----------+
+5 rows in set (0.01 sec)
+
+mysql> SELECT EMP_NAME ,DEP_NAME FROM EMPLOYEES RIGHT OUTER JOIN DEPARTMENTS ON EMPLOYEES.DEP_ID=DEPARTMENTS.DEP_ID;
++----------+------------+
+| EMP_NAME | DEP_NAME   |
++----------+------------+
+| NULL     | FINANCE    |
+| NULL     | MANAGEMENT |
+| NULL     | ICT        |
+| NULL     | PRODUCTION |
+| NULL     | SALES      |
++----------+------------+
+5 rows in set (0.00 sec)
+
+mysql> ALTER TABLE EMPLOYEES ADD COLUMN SALARY INT;
+Query OK, 5 rows affected (0.05 sec)
+Records: 5  Duplicates: 0  Warnings: 0
+
+mysql> UPDATE EMPLOYEES SET SALARY =30000 WHERE EMP_ID=222;
+Query OK, 1 row affected (0.02 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql>  UPDATE EMPLOYEES SET SALARY =25000 WHERE EMP_ID=232;
+Query OK, 1 row affected (0.00 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql>  UPDATE EMPLOYEES SET SALARY =10000 WHERE EMP_ID=672;
+Query OK, 1 row affected (0.00 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql>  UPDATE EMPLOYEES SET SALARY =15000 WHERE EMP_ID=442;
+Query OK, 1 row affected (0.00 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql>  UPDATE EMPLOYEES SET SALARY =20000 WHERE EMP_ID=612;
+Query OK, 1 row affected (0.00 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> SELECT *FROM EMPLOYEES;
++--------+----------+-------------+--------+--------+
+| EMP_ID | EMP_NAME | EMP_ADDRESS | DEP_ID | SALARY |
++--------+----------+-------------+--------+--------+
+|    222 | MANIRAHO | RUHANGO     |    111 |  30000 |
+|    232 | UWIMANA  | HUYE        |    113 |  25000 |
+|    672 | CYIZA    | GISAGARA    |    123 |  10000 |
+|    442 | KALISA   | GASABO      |    890 |  15000 |
+|    612 | YVONNE   | BURERA      |    551 |  20000 |
++--------+----------+-------------+--------+--------+
+5 rows in set (0.00 sec)
+
+mysql> SELECT* FROM EMPLOYEES WHERE SALARY> (SELECT AVG(SALARY) FROM EMPLOYEES);
++--------+----------+-------------+--------+--------+
+| EMP_ID | EMP_NAME | EMP_ADDRESS | DEP_ID | SALARY |
++--------+----------+-------------+--------+--------+
+|    222 | MANIRAHO | RUHANGO     |    111 |  30000 |
+|    232 | UWIMANA  | HUYE        |    113 |  25000 |
++--------+----------+-------------+--------+--------+
+2 rows in set (0.02 sec)
+
+mysql> CREATE TABLE STUDENT(STUDENTID VARCHAR(5),FULLNAMES VARCHAR(25),GENDER VARCHAR(6),AGE INT(2),DEPARTMENT VARCHAR(30));
+Query OK, 0 rows affected, 1 warning (0.02 sec)
+mysql> INSERT INTO STUDENT VALUES(2001,'BWIZA INES','FEMALE',20,'BIT');
+Query OK, 1 row affected (0.00 sec)
+
+mysql> INSERT INTO STUDENT VALUES(2002,'NTWALI INNOCENT','MALE',20,'ACC');
+Query OK, 1 row affected (0.00 sec)
+
+mysql> INSERT INTO STUDENT VALUES(2003,'BUGINGO ANTOINE','MALE',25,'ECONOMY');
+Query OK, 1 row affected (0.00 sec)
+
+mysql> INSERT INTO STUDENT VALUES(2004,'MURAVA ANNE','FEMALE',22,'BIT');
+Query OK, 1 row affected (0.00 sec)
+
+mysql> SELECT *FROM STUDENT;
++-----------+-----------------+--------+------+------------+
+| STUDENTID | FULLNAMES       | GENDER | AGE  | DEPARTMENT |
++-----------+-----------------+--------+------+------------+
+| 2001      | BWIZA INES      | FEMALE |   20 | BIT        |
+| 2002      | NTWALI INNOCENT | MALE   |   20 | ACC        |
+| 2003      | BUGINGO ANTOINE | MALE   |   25 | ECONOMY    |
+| 2004      | MURAVA ANNE     | FEMALE |   22 | BIT        |
++-----------+-----------------+--------+------+------------+
+4 rows in set (0.00 sec)
+mysql> CREATE TABLE SALES(SALES_NO INT(29)PIMARY KEY,SALES_NAME VARCHAR(15),BRANCH VARCHAR(29),SALES_AMOUNT INT(23),DOB VARCHAR(14));
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'PIMARY KEY,SALES_NAME VARCHAR(15),BRANCH VARCHAR(29),SALES_AMOUNT INT(23),DOB VA' at line 1
+mysql> CREATE TABLE SALES(SALES_NO INT(29)PRIMARY KEY,SALES_NAME VARCHAR(15),BRANCH VARCHAR(29),SALES_AMOUNT INT(23),DOB VARCHAR(14));
+Query OK, 0 rows affected, 2 warnings (0.02 sec)
+
+mysql> INSERT INTO SALES VALUES(500,'CLOTHES','HUYE',12000,12-09-2021);
+Query OK, 1 row affected (0.02 sec)
+
+mysql>  INSERT INTO SALES VALUES(600,'BEANS','NYANZA',1000,13-02-2022);
+Query OK, 1 row affected (0.00 sec)
+
+mysql>  INSERT INTO SALES VALUES(700,'MILK','RUHANGO',2000,01-09-2011);
+Query OK, 1 row affected (0.00 sec)
+
+mysql>  INSERT INTO SALES VALUES(800,'SHOES','MUHANGA',20000,20-10-2023);
+Query OK, 1 row affected (0.00 sec)
+
+mysql>  INSERT INTO SALES VALUES(500,'S','KICUKIRO',22000,10-11-2020);
+ERROR 1062 (23000): Duplicate entry '500' for key 'sales.PRIMARY'
+mysql>  INSERT INTO SALES VALUES(900,'TELEVISION','KICUKIRO',22000,10-11-2020);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> SELECT *FROM SALES;
++----------+------------+----------+--------------+-------+
+| SALES_NO | SALES_NAME | BRANCH   | SALES_AMOUNT | DOB   |
++----------+------------+----------+--------------+-------+
+|      500 | CLOTHES    | HUYE     |        12000 | -2018 |
+|      600 | BEANS      | NYANZA   |         1000 | -2011 |
+|      700 | MILK       | RUHANGO  |         2000 | -2019 |
+|      800 | SHOES      | MUHANGA  |        20000 | -2013 |
+|      900 | TELEVISION | KICUKIRO |        22000 | -2021 |
++----------+------------+----------+--------------+-------+
+5 rows in set (0.00 sec)
+
+mysql> SELECT Branch, SUM(SalesAmount) AS "TotalSales" FROM Sales GROUP BY Branch;
+ERROR 1054 (42S22): Unknown column 'SalesAmount' in 'field list'
+mysql> SELECT BRANCH, SUM(SALES_AMOUNT) AS "TOTAL SALES" FROM SALES GROUP BY BRANCH;
++----------+-------------+
+| BRANCH   | TOTAL SALES |
++----------+-------------+
+| HUYE     |       12000 |
+| NYANZA   |        1000 |
+| RUHANGO  |        2000 |
+| MUHANGA  |       20000 |
+| KICUKIRO |       22000 |
++----------+-------------+
+5 rows in set (0.01 sec)
+
+mysql> SELECT BRANCH, AVG(SALES_AMOUNT) AS "AVGSALES" FROM SALES GROUP BY BRANCH;
++----------+------------+
+| BRANCH   | AVGSALES   |
++----------+------------+
+| HUYE     | 12000.0000 |
+| NYANZA   |  1000.0000 |
+| RUHANGO  |  2000.0000 |
+| MUHANGA  | 20000.0000 |
+| KICUKIRO | 22000.0000 |
++----------+------------+
+5 rows in set (0.01 sec)
+
+mysql> SELECT SALES_NAME, DOB FROM SALES WHERE DOP LIKE "%DEC%";
+ERROR 1054 (42S22): Unknown column 'DOP' in 'where clause'
+mysql> SELECT SALES_NAME, DOB FROM SALES WHERE DOB LIKE "%DEC%";
+Empty set (0.01 sec)
+
+mysql> CREATE TABLE EMPLOYES(EMPLOYEE_ID INT(20)PRIMARY KEY,FRIST_NAME VARCHAR(23),LAST_NAME VARCHAR(15),EMAIL VARCHAR(19),PHONE_NUMBER INT(20),HIRE_DATE(17),JOB_ID INT(9),SALARY INT(24),COMMISSION_PCT INT(30),MANAGER_ID INT(21),DEPARTMENT_ID INT(23));
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '(17),JOB_ID INT(9),SALARY INT(24),COMMISSION_PCT INT(30),MANAGER_ID INT(21),DEPA' at line 1
+mysql> CREATE TABLE EMPLOYES(EMPLOYEE_ID INT(20)PRIMARY KEY,FRIST_NAME VARCHAR(23),LAST_NAME VARCHAR(15),EMAIL VARCHAR(19),PHONE_NUMBER INT(20),HIRE_DATE VARCHAR(17),JOB_ID INT(9),SALARY INT(24),COMMISSION_PCT INT(30),MANAGER_ID INT(21),DEPARTMENT_ID INT(23));
+Query OK, 0 rows affected, 7 warnings (0.02 sec)
+
+mysql> INSERT INTO EMPLOYES VALUES(1011,'BYIRINGIRO','AUSTIN','BYIRAUST@GMAIL',07898765,10-12-2021,211,3000,1200,100,60);
+Query OK, 1 row affected (0.00 sec)
+
+mysql>  INSERT INTO EMPLOYES VALUES(1022,'MUKAMANA','AUSTIN','MUKAMAADE@GMAIL',07898675,09-09-2021,221,5000,200,101,80);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> NSERT INTO EMPLOYES VALUES("433","IRADUKUNDA","FANNY","MUD@GMAIL.COM","0735530042","12/05/2022",3000,1333.45,100,70);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'NSERT INTO EMPLOYES VALUES("433","IRADUKUNDA","FANNY","MUD@GMAIL.COM","073553004' at line 1
+mysql> INSERT INTO EMPLOYES VALUES("433","IRADUKUNDA","FANNY","MUD@GMAIL.COM","0735530042","12/05/2022",3000,1333.45,100,70);
+ERROR 1136 (21S01): Column count doesn't match value count at row 1
+mysql> INSERT INTO EMPLOYES VALUES(1022,'MUKAMANA','AUSTIN','MUKAMAADE@GMAIL',07898675,09-09-2021,221,5000,200,101,70);
+
